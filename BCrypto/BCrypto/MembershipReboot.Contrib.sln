@@ -1,0 +1,22 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio 2013
+VisualStudioVersion = 12.0.31101.0
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BCrypto", "MembershipReboot.Contrib.BCrypto\BCrypto.csproj", "{B188EA23-B6CF-4CD5-8DAD-394BAE7B0020}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{B188EA23-B6CF-4CD5-8DAD-394BAE7B0020}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{B188EA23-B6CF-4CD5-8DAD-394BAE7B0020}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{B188EA23-B6CF-4CD5-8DAD-394BAE7B0020}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{B188EA23-B6CF-4CD5-8DAD-394BAE7B0020}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+EndGlobal

@@ -28,12 +28,12 @@ namespace MembershipReboot.Contrib
 
         public string Hash(string value, string key)
         {
-            throw new NotImplementedException();
+            return BCrypt.Net.BCrypt.HashPassword(value, _workFactor);
         }
 
         public bool VerifyHash(string value, string key, string hash)
         {
-            throw new NotImplementedException();
+            return this.VerifyHashedPassword(hash, value);
         }
 
         public string GenerateNumericCode(int digits)
@@ -41,10 +41,10 @@ namespace MembershipReboot.Contrib
             // 18 is good size for a long
             if (digits > 18) digits = 18;
             if (digits <= 0) digits = 6;
-            string str = BCrypt.Net.BCrypt.GenerateSalt(sizeof(long));;
+            string str = BCrypt.Net.BCrypt.GenerateSalt(sizeof(long)); ;
             byte[] bytes = new byte[str.Length * sizeof(char)];
             System.Buffer.BlockCopy(str.ToCharArray(), 0, bytes, 0, bytes.Length);
-            
+
             var val = BitConverter.ToInt64(bytes, 0);
             var mod = (int)Math.Pow(10, digits);
             val %= mod;
@@ -65,7 +65,37 @@ namespace MembershipReboot.Contrib
 
         public bool VerifyHashedPassword(string hashedPassword, string password)
         {
-            return BCrypt.Net.BCrypt.Verify(password, hashedPassword);
+            bool result;
+            try
+            {
+                result = BCrypt.Net.BCrypt.Verify(password, hashedPassword);
+            }
+            catch (Exception ep)
+            {
+                try
+                {
+                    // the hash could be generated from older BCrypt version
+                    result = BCrypt.Net.BCrypt.Verify(password, ReplaceFirst(hashedPassword, "2a", "2y"));
+                }
+                catch (Exception ep2)
+                {
+                    // the hash could be generated from other hash library
+                    result = false;
+                }
+
+            }
+
+            return result;
+        }
+
+        string ReplaceFirst(string text, string search, string replace)
+        {
+            int pos = text.IndexOf(search);
+            if (pos < 0)
+            {
+                return text;
+            }
+            return text.Substring(0, pos) + replace + text.Substring(pos + search.Length);
         }
     }
 }
